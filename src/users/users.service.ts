@@ -68,7 +68,7 @@ export class UserService {
     return this.users.findOne({ id });
   }
 
-  async editProfile(userId: number, { email, password }: EditProfileInput) {
-    return this.users.update(userId, { email, password });
+  async editProfile(userId: number, editProfileInput: EditProfileInput) {
+    return this.users.update(userId, { ...editProfileInput });
   }
 }
