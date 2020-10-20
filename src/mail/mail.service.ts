@@ -1,3 +1,5 @@
+import got from 'got';
+import * as FormData from 'form-data';
 import { Inject, Injectable } from '@nestjs/common';
 import { CONFIG_OPTIONS } from 'src/common/common.constants';
 import { MailModuleOptions } from './mail.interfaces';
@@ -11,24 +13,23 @@ export class MailService {
   }
 
   private async sendEmail(subject: string, content: string) {
-    const response = await fetch(
+    const form = new FormData();
+    form.append('from', `Excited User <mailgun@${this.options.domain}>`);
+    form.append('to', `nico@nomadcoders.co`);
+    form.append('subject', subject);
+    form.append('text', content);
+    const response = await got(
       `https://api.mailgun.net/v3/${this.options.domain}/messages`,
       {
         method: 'POST',
         headers: {
-          Authentication: `Basic ${Buffer.from(
+          Authorization: `Basic ${Buffer.from(
             `api:${this.options.apiKey}`,
           ).toString('base64')}`,
         },
-        body: JSON.stringify({
-          from: this.options.fromEmail,
-          to: 'nico@nomadcoders.co',
-          subject: subject,
-          text: content,
-        }),
+        body: form,
       },
     );
-    const json = await response.json();
-    console.log(json);
+    console.log(response.body);
   }
 }
