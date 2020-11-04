@@ -4,7 +4,7 @@ import { CoreEntity } from 'src/common/entities/core.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Restaurant } from './restaurant.entity';
 
-@InputType({ isAbstract: true })
+@InputType('CategoryInputType', { isAbstract: true })
 @ObjectType()
 @Entity()
 export class Category extends CoreEntity {
@@ -19,7 +19,7 @@ export class Category extends CoreEntity {
   @IsString()
   coverImg: string;
 
-  @Field(type => [Restaurant])
+  @Field(type => [Restaurant], { nullable: true })
   @OneToMany(
     type => Restaurant,
     restaurant => restaurant.category,
