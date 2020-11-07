@@ -2,7 +2,6 @@
 
 The Backend of Nuber Eats Clone
 
-- Edit Restaurant
 - Delete Restaurant
 
 * See Categories
