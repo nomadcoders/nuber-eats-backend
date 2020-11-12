@@ -4,8 +4,8 @@ The Backend of Nuber Eats Clone
 
 - Orders Subscription:
 
-  - Pending Orders (Owner) (T: createOrder)
-  - Order Status (Customer, Delivery, Owner) (T: editOrder)
+  - Pending Orders
+  - Order Status (Customer, Delivery, Owner)
   - Pending Pickup Order (Delivery)
 
 - Payments (CRON)
