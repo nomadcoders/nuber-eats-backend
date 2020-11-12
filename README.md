@@ -2,8 +2,6 @@
 
 The Backend of Nuber Eats Clone
 
-- Orders Subscription:
+Add Driver to Order
 
-* Order Status (Customer, Delivery, Owner)
-
-* Payments (CRON)
+- Payments (CRON)
