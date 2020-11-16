@@ -18,7 +18,6 @@ export class PaymentService {
     private readonly payments: Repository<Payment>,
     @InjectRepository(Restaurant)
     private readonly restaurants: Repository<Restaurant>,
-    private schedulerRegistry: SchedulerRegistry,
   ) {}
 
   async createPayment(
@@ -46,6 +45,11 @@ export class PaymentService {
           restaurant,
         }),
       );
+      restaurant.isPromoted = true;
+      const date = new Date();
+      date.setDate(date.getDate() + 7);
+      restaurant.promotedUntil = date;
+      this.restaurants.save(restaurant);
       return {
         ok: true,
       };
@@ -67,24 +71,5 @@ export class PaymentService {
         error: 'Could not load payments.',
       };
     }
-  }
-
-  @Cron('30 * * * * *', {
-    name: 'myJob',
-  })
-  checkForPayments() {
-    console.log('Checking for payments....(cron)');
-    const job = this.schedulerRegistry.getCronJob('myJob');
-    job.stop();
-  }
-
-  @Interval(5000)
-  checkForPaymentsI() {
-    console.log('Checking for payments....(interval)');
-  }
-
-  @Timeout(20000)
-  afterStarts() {
-    console.log('Congrats!');
   }
 }
